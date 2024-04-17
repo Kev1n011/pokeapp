@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Row, InputGroup, Form, Button } from "react-bootstrap";
-import "./Finder.css"; 
+import { View, TextInput, Button, Text } from "react-native";
 
 function Finder({ texto, foundPokemon }) {
   const [nombre, setNombre] = useState("");
@@ -27,20 +26,16 @@ function Finder({ texto, foundPokemon }) {
   }
 
   return (
-    <Row>
-      <InputGroup className="mb-3">
-        <Form.Control
-          className="custom-input" 
-          placeholder="Nombre del Pokémon"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-        />
-        <Button variant="outline-secondary" onClick={getPokemonData}>
-          {texto}
-        </Button>
-      </InputGroup>
-      {error && <p className="mensaje-error">{error}</p>}
-    </Row>
+    <View>
+      <TextInput
+        style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginBottom: 10 }}
+        placeholder="Nombre del Pokémon"
+        value={nombre}
+        onChangeText={(text) => setNombre(text)}
+      />
+      <Button title={texto} onPress={getPokemonData} />
+      {error && <Text style={{ color: 'red' }}>{error}</Text>}
+    </View>
   );
 }
 

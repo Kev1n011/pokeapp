@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card } from "react-bootstrap";
-import Swal from "sweetalert2";
+import { View, Text, Button, Image } from "react-native";
 
 function PokemonCard({ pokemon }) {
   const [curiosidad, setCuriosidad] = useState(""); // Estado para almacenar la curiosidad del Pokémon
@@ -30,37 +29,25 @@ function PokemonCard({ pokemon }) {
     try {
       const curiosidad = await obtenerCuriosidad();
       // Mostrar la curiosidad en un Sweet Alert
-      Swal.fire({
-        title: "Curiosidad del Pokémon",
-        text: curiosidad,
-        icon: "info",
-        confirmButtonText: "Entendido"
-      });
+      alert("Curiosidad del Pokémon: " + curiosidad);
     } catch (error) {
       console.error("Error al obtener la curiosidad del Pokémon:", error.message);
       // Mostrar un mensaje de error en caso de falla
-      Swal.fire({
-        title: "Error",
-        text: "No se pudo obtener la curiosidad del Pokémon.",
-        icon: "error",
-        confirmButtonText: "Entendido"
-      });
+      alert("Error: No se pudo obtener la curiosidad del Pokémon.");
     }
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.nombre} />
-      <Card.Body>
-        <Card.Title>{pokemon.name}</Card.Title>
-        <Card.Text>
-          <strong>Altura:</strong> {pokemon.height}<br />
-          <strong>Peso:</strong> {pokemon.weight}<br />
-          <strong>Tipos:</strong> {pokemon.types && pokemon.types.map(tipo => tipo.type.name).join(', ')}<br />
-        </Card.Text>
-        <Button variant="primary" onClick={verCuriosidad}>Ver</Button>
-      </Card.Body>
-    </Card>
+    <View style={{ width: 200 }}>
+      <Image style={{ width: 200, height: 200 }} source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png` }} />
+      <View>
+        <Text>{pokemon.name}</Text>
+        <Text>Altura: {pokemon.height}</Text>
+        <Text>Peso: {pokemon.weight}</Text>
+        <Text>Tipos: {pokemon.types && pokemon.types.map(tipo => tipo.type.name).join(', ')}</Text>
+      </View>
+      <Button title="Ver" onPress={verCuriosidad} />
+    </View>
   );
 }
 

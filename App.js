@@ -1,26 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from "react";
-import Finder from './Components/Components/Finder.js';
-import PokemonCard from './Components/PokemonCard.js';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import Finder from './src/Components/Finder';
+import PokemonCard from './src/Components/PokemonCard';
 
-export default function App() {
+const App = () => {
   const [pokemon, setPokemon] = useState(null);
 
+  const handleFoundPokemon = (pokemonData) => {
+    setPokemon(pokemonData);
+  };
+
   return (
-    <div className="App">
-      <Finder texto={"Buscar Pokémon"} foundPokemon={setPokemon} />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Finder texto="Buscar" foundPokemon={handleFoundPokemon} />
       {pokemon && <PokemonCard pokemon={pokemon} />}
-    </div>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
+export default App;
